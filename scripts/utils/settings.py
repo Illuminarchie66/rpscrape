@@ -1,6 +1,7 @@
 import os
 import tomli
 
+from pathlib import Path
 from collections.abc import Mapping
 from typing import Any
 
@@ -32,17 +33,20 @@ class Settings:
 
         return fields
 
-    def load_toml(self) -> Mapping[str, Any] | None:
-        default_path = '../settings/default_settings.toml'
-        user_path = '../settings/user_settings.toml'
+def load_toml(self) -> Mapping[str, Any] | None:
+    ROOT_DIR = Path(__file__).resolve().parents[1]
 
-        path = user_path if os.path.isfile(user_path) else default_path
-        if path == default_path and not os.path.isfile(default_path):
-            raise FileNotFoundError(f'{default_path} does not exist')
+    default_path = ROOT_DIR / 'settings' / 'default_settings.toml'
+    user_path = ROOT_DIR / 'settings' / 'user_settings.toml'
 
-        try:
-            with open(path, 'rb') as f:
-                return tomli.load(f)
-        except tomli.TOMLDecodeError:
-            print(f'TomlParseError: {path}')
-            return None
+    path = user_path if user_path.is_file() else default_path
+
+    if path == default_path and not default_path.is_file():
+        raise FileNotFoundError(f'{default_path} does not exist')
+
+    try:
+        with path.open('rb') as f:
+            return tomli.load(f)
+    except tomli.TOMLDecodeError:
+        print(f'TomlParseError: {path}')
+        return None

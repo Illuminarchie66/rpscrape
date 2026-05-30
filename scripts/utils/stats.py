@@ -4,7 +4,7 @@ from dataclasses import asdict, dataclass
 from lxml.html import HtmlElement
 from typing import Any
 
-from utils.lxml_funcs import find
+from ..utils.lxml_funcs import find
 
 
 @dataclass

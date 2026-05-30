@@ -10,13 +10,13 @@ from models.betfair import BSPMap
 from models.race import RaceInfo, RunnerInfo
 from utils.pedigree import Pedigree
 
-from utils.cleaning import clean_race, clean_string, strip_row
-from utils.date import convert_date
-from utils.going import get_surface
-from utils.lps import get_lps_scale
-from utils.lxml_funcs import find
-from utils.network import NetworkClient
-from utils.region import get_region
+from ..utils.cleaning import clean_race, clean_string, strip_row
+from ..utils.date import convert_date
+from ..utils.going import get_surface
+from ..utils.lps import get_lps_scale
+from ..utils.lxml_funcs import find
+from ..utils.network import NetworkClient
+from ..utils.region import get_region
 
 
 regex_class = r'(\(|\s)(C|c)lass (\d|[A-Ha-h])(\)|\s)'

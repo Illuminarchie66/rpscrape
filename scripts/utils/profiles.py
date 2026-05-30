@@ -4,7 +4,7 @@ from typing import Any, NoReturn
 from orjson import loads
 from lxml import html
 
-from utils.network import NetworkClient
+from ..utils.network import NetworkClient
 
 
 def get_profiles(client: NetworkClient, urls: list[str]) -> dict[str, dict[str, Any]]:

@@ -13,12 +13,12 @@ from orjson import loads
 from pathlib import Path
 from typing import TextIO, TYPE_CHECKING
 
-from utils.argparser import ArgParser
-from utils.betfair import Betfair
-from utils.network import NetworkClient
-from utils.paths import Paths, build_paths
-from utils.settings import Settings
-from utils.update import Update
+from .utils.argparser import ArgParser
+from .utils.betfair import Betfair
+from .utils.network import NetworkClient
+from .utils.paths import Paths, build_paths
+from .utils.settings import Settings
+from .utils.update import Update
 
 _ = load_dotenv()
 

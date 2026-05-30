@@ -4,7 +4,7 @@ from datetime import datetime
 from orjson import dumps
 from typing import Any
 
-from utils.cleaning import clean_string
+from .utils.cleaning import clean_string
 
 type BSPMap = dict[tuple[str, str, str], list[BSP]]
 

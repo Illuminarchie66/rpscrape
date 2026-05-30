@@ -2,23 +2,23 @@ from argparse import ArgumentParser
 from datetime import date
 from typing import NamedTuple
 
-from utils.paths import RequestKey
+from ..utils.paths import RequestKey
 
-from utils.course import (
+from ..utils.course import (
     course_name,
     course_search,
     courses,
     print_courses,
     valid_course,
 )
-from utils.date import (
+from ..utils.date import (
     check_date,
     format_date,
     get_dates,
     parse_years,
     valid_years,
 )
-from utils.region import (
+from ..utils.region import (
     print_regions,
     valid_region,
     region_search,

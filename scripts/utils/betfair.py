@@ -5,7 +5,7 @@ import curl_cffi
 from pathlib import Path
 from datetime import date, timedelta, datetime
 
-from models.betfair import BSP, BSPMap
+from ..models.betfair import BSP, BSPMap
 
 
 class Betfair:

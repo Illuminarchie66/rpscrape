@@ -16,15 +16,15 @@ from orjson import dumps
 from tqdm import tqdm
 from typing import Any
 
-from utils.cleaning import clean_string
-from utils.course import valid_meeting
-from utils.going import get_surface
-from utils.lxml_funcs import find
-from utils.network import NetworkClient
-from utils.profiles import get_profiles
-from utils.region import get_region, valid_region
-from utils.stats import Stats
-from models.racecard import Racecard, Runner
+from .utils.cleaning import clean_string
+from .utils.course import valid_meeting
+from .utils.going import get_surface
+from .utils.lxml_funcs import find
+from .utils.network import NetworkClient
+from .utils.profiles import get_profiles
+from .utils.region import get_region, valid_region
+from .utils.stats import Stats
+from .models.racecard import Racecard, Runner
 
 _ = load_dotenv()
 
@@ -43,24 +43,24 @@ type Racecards = defaultdict[str, defaultdict[str, defaultdict[str, dict[str, An
 
 
 def load_field_config() -> dict[str, Any]:
-    """Load field configuration from settings/user_racecard_settings.toml or default_racecard_settings.toml"""
-    user_config_path = Path('../settings/user_racecard_settings.toml')
-    default_config_path = Path('../settings/default_racecard_settings.toml')
+    """Load field configuration from settings/user_racecard_settings.toml or default."""
+    
+    BASE_DIR = Path(__file__).resolve().parents[0]  # scripts/
+    ROOT_DIR = BASE_DIR.parent                      # project root
 
-    # Try user config first, fallback to default
+    user_config_path = ROOT_DIR / 'settings' / 'user_racecard_settings.toml'
+    default_config_path = ROOT_DIR / 'settings' / 'default_racecard_settings.toml'
+
     config_path = user_config_path if user_config_path.exists() else default_config_path
 
     if not config_path.exists():
-        # Return default config (everything enabled)
         return {
-            'data_collection': {'fetch_profiles': False, 'fetch_stats': False, 'max_days': 2},
-            'field_groups': {},  # Empty means all groups enabled
+            'data_collection': {'fetch_profiles': True, 'fetch_stats': True, 'max_days': 2},
+            'field_groups': {},
         }
 
-    with open(config_path, 'rb') as f:
-        config = tomli.load(f)
-
-    return config
+    with config_path.open('rb') as f:
+        return tomli.load(f)
 
 
 def validate_days_range(value: str, max_days: int) -> int:
@@ -89,6 +89,7 @@ def get_race_urls(
             continue
 
         doc = html.fromstring(response.content)
+        print(response.content)
 
         for meeting in doc.xpath('//section[@data-accordion-row]'):
             course = meeting.xpath(".//span[contains(@class, 'RC-accordion__courseName')]")[0]

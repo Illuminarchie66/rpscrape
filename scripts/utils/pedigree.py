@@ -3,7 +3,7 @@ from re import search
 from collections.abc import Callable
 from lxml.html import HtmlElement
 
-from utils.cleaning import clean_string
+from ..utils.cleaning import clean_string
 
 
 class Pedigree:

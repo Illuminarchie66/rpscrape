@@ -1,8 +1,12 @@
 from collections.abc import Iterator
+from pathlib import Path
 from orjson import loads
 
 
-_courses = loads(open('../courses/_courses', 'r').read())
+ROOT_DIR = Path(__file__).resolve().parents[2]
+
+COURSES_FILE = ROOT_DIR / 'courses' / '_courses'
+_courses = loads(COURSES_FILE.read_text())
 
 
 def courses(code: str = 'all') -> Iterator[tuple[str, str]]:
